@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Cloudflare local secrets (nunca commitear)
+.dev.vars
+
 # Windows Zone Identifier (WSL artifact)
 *:Zone.Identifier
 

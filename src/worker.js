@@ -1,16 +1,38 @@
 /*
- * Cloudflare Pages Function — POST /api/contact
+ * Cloudflare Worker — codeana-marketing
  *
- * SETUP REQUERIDO:
- * 1. Cargar RESEND_API_KEY en Cloudflare Pages → Settings → Environment variables
- * 2. Verificar el dominio codeana.uy en Resend (resend.com/domains)
- *    Mientras el dominio no esté verificado, cambiar el `from` a:
- *    "onboarding@resend.dev"  (dominio de prueba de Resend)
+ * Routing:
+ *   POST /api/contact  →  handleContact() — envía mail via Resend
+ *   todo lo demás      →  assets estáticos de dist/ (fallback SPA a index.html)
+ *
+ * Variables de entorno requeridas:
+ *   RESEND_API_KEY  — cargada en Cloudflare dashboard → Workers → codeana-marketing
+ *                     → Settings → Variables and Secrets
+ *
+ * Pruebas locales:
+ *   1. Crear .dev.vars en la raíz con: RESEND_API_KEY=re_xxxxx
+ *   2. npm run build && npm run dev:worker
+ *   3. curl -X POST http://localhost:8787/api/contact \
+ *        -H "Content-Type: application/json" \
+ *        -d '{"nombre":"Test","email":"test@ejemplo.com","mensaje":"Mensaje de prueba","_honeypot":""}'
  */
 
-export async function onRequestPost(context) {
-  const { request, env } = context
+export default {
+  async fetch(request, env) {
+    const { pathname } = new URL(request.url)
 
+    if (pathname === '/api/contact') {
+      if (request.method !== 'POST') {
+        return json({ ok: false, message: 'Method not allowed.' }, 405)
+      }
+      return handleContact(request, env)
+    }
+
+    return env.ASSETS.fetch(request)
+  },
+}
+
+async function handleContact(request, env) {
   let body
   try {
     body = await request.json()
