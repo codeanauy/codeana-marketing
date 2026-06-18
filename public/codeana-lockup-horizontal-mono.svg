@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 120" width="340" height="120" fill="none">
+  <g transform="translate(-12,0)">
+    <path d="M84 40 A26 26 0 1 0 84 80" fill="none" stroke="#0F2A42" stroke-width="13" stroke-linecap="round"></path>
+    <rect x="78" y="53" width="14" height="14" rx="3" fill="#0F2A42"></rect>
+  </g>
+  <text x="108" y="60" font-family="DM Sans, sans-serif" font-size="56" font-weight="600" letter-spacing="-1.8" fill="#0F2A42" dominant-baseline="central">Codeana</text>
+</svg>

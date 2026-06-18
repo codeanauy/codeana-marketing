@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+
+  --color-opus-pergamino:        #F6F4EE;
+  --color-opus-pergamino-dark:   #EAE7DF;
+  --color-opus-pergamino-border: #D5D0C4;
+
+  --color-opus-texto:            #0F2A42;
+  --color-opus-texto-mid:        #2A4A62;
+  --color-opus-texto-muted:      #6A6458;
+  --color-opus-texto-light:      #9A9088;
+
+  --color-opus-prusia:           #1B4F82;
+  --color-opus-prusia-hover:     #154070;
+  --color-opus-prusia-light:     #E2EBF5;
+  --color-opus-prusia-border:    #AABFD8;
+  --color-opus-prusia-deep:      #0A2540;
+  --color-opus-prusia-deeper:    #061A2E;
+
+  --color-opus-acento:           #E8A33D;
+  --color-opus-acento-hover:     #D4901F;
+  --color-opus-acento-light:     #FBF0DA;
+  --color-opus-acento-contrast:  #5A3D0A;
+
+  --color-opus-alba:             #F7F8FC;
+  --color-opus-cielo:            #4A9EE8;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #F6F4EE;
+    color: #0F2A42;
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--color-opus-prusia);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+/* ─── Menú mobile ──────────────────────────────────────── */
+
+@keyframes menu-slide-down {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+.menu-slide-down {
+  animation: menu-slide-down 0.18s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-slide-down { animation: none; }
+}
+
+/* ─── Animación de entrada general ─────────────────────── */
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up { animation: none !important; opacity: 1 !important; transform: none !important; }
+}
+
+/* ─── Hero: dot grid ────────────────────────────────────── */
+
+/* Puntitos en grilla — más limpios que líneas, los nodos destacan */
+.hero-grid {
+  background-image: radial-gradient(circle, rgba(170, 191, 216, 0.28) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(
+    ellipse 90% 85% at center,
+    black 15%,
+    rgba(0, 0, 0, 0.55) 55%,
+    transparent 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 90% 85% at center,
+    black 15%,
+    rgba(0, 0, 0, 0.55) 55%,
+    transparent 90%
+  );
+}
+
+/* Barrido diagonal — banda de luz que cruza el fondo */
+.hero-grid-sweep {
+  background: linear-gradient(
+    118deg,
+    transparent             0%,
+    rgba(247,248,252,0.032) 42%,
+    rgba(247,248,252,0.058) 50%,
+    rgba(247,248,252,0.032) 58%,
+    transparent             100%
+  );
+  background-size: 200% 200%;
+  animation: grid-sweep 15s ease-in-out infinite;
+  will-change: background-position;
+}
+
+@keyframes grid-sweep {
+  0%   { background-position:  160%  160%; }
+  50%  { background-position: -60%  -60%; }
+  100% { background-position:  160%  160%; }
+}
+
+/* Pulso suave de los nodos ámbar */
+.hero-node-pulse {
+  animation: node-pulse 3.2s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0%, 100% { opacity: 0.45; transform: scale(1);   }
+  50%       { opacity: 1;    transform: scale(1.35); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-grid-sweep              { animation: none; }
+  .hero-node-pulse              { animation: none; opacity: 0.7; }
+}
+
+/* ─── Services: grilla técnica sutil ────────────────────── */
+
+.services-grid {
+  background-image:
+    linear-gradient(rgba(27, 79, 130, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(27, 79, 130, 0.045) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(
+    ellipse 85% 100% at 50% 50%,
+    black 25%,
+    rgba(0, 0, 0, 0.35) 65%,
+    transparent 90%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 85% 100% at 50% 50%,
+    black 25%,
+    rgba(0, 0, 0, 0.35) 65%,
+    transparent 90%
+  );
+}
